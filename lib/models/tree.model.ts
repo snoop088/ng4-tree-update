@@ -84,6 +84,14 @@ export class TreeModel implements ITreeModel {
     this.events[event.eventName].emit(event);
     this.events.onEvent.emit(event);
   }
+  // CONTEXT MENU NODE
+  private _contextMenuNode: TreeNode = null;
+  get contextMenuNode(): TreeNode {
+    return this._contextMenuNode
+  }
+  set contextMenuNode(node: TreeNode) {
+    this._contextMenuNode = node;
+  }
 
   get focusedNode() { deprecated('focusedNode attribute', 'getFocusedNode'); return this.getFocusedNode(); }
   set focusedNode(value) { deprecated('focusedNode = ', 'setFocusedNode'); this.setFocusedNode(value) };

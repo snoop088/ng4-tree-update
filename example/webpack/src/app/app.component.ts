@@ -47,7 +47,7 @@ const actionMapping:IActionMapping = {
   >
   <template #treeNodeTemplate let-node>
   <span title="{{node.data.subTitle}}">{{ node.data.name }}</span>
-  <span class="pull-right">{{ childrenCount(node) }}</span>
+  <span class="pull-right">{{ childrenCount(node) }} | {{ node.isFolder }}</span>
   <button (click)="go($event)">Custom Action</button>
   </template>
   <template #loadingTemplate>Loading, please hold....</template>
@@ -99,15 +99,18 @@ export class App {
           expanded: true,
           name: 'root expanded',
           subTitle: 'the root',
+          folder: true,
           children: [
             {
               name: 'child1',
               subTitle: 'a good child',
+              folder: false,
               hasChildren: false
             }, {
 
               name: 'child2',
               subTitle: 'a bad child',
+              folder: false,
               hasChildren: false
             }
           ]
@@ -115,20 +118,24 @@ export class App {
         {
           name: 'root2',
           subTitle: 'the second root',
+          folder: true,
           children: [
             {
               name: 'child2.1',
               subTitle: 'new and improved',
+              folder: false,
               hasChildren: false
             }, {
 
               name: 'child2.2',
               subTitle: 'new and improved2',
+              folder: true,
               children: [
                 {
                   uuid: 1001,
                   name: 'subsub',
                   subTitle: 'subsub',
+                  folder: false,
                   hasChildren: false
                 }
               ]
@@ -138,6 +145,7 @@ export class App {
         {
 
           name: 'asyncroot',
+          folder: true,
           hasChildren: true
         }
       ];
@@ -167,7 +175,8 @@ export class App {
   addNode(tree) {
     this.nodes[0].children.push({
 
-      name: 'a new child'
+      name: 'a new child',
+      folder: true
     });
     tree.treeModel.update();
   }

@@ -21,7 +21,18 @@ export class TreeNode implements ITreeNode {
 
   private _originalNode: any;
   get originalNode() { return this._originalNode };
+   // FOLDER FLAG
+  private _isFolder: boolean = false;
+  // OPEN CONTEXT FLAG
+  private _openContext: boolean = false;
+  get openContext(): boolean {
+    return this._openContext;
+  }
+  set openContext(value: boolean) {
+    this._openContext = value;
+  }
 
+ 
   constructor(public data:any, public parent:TreeNode, public treeModel:TreeModel) {
     this.id = this.id || uuid(); // Make sure there's a unique ID
     this.level = this.parent ? this.parent.level + 1 : 0;
@@ -29,6 +40,11 @@ export class TreeNode implements ITreeNode {
 
     if (this.getField('children')) {
       this._initChildren();
+    }
+    // CHECK for children
+    if (this.data['folder']) {
+      console.log('setting');
+      this._isFolder = true;
     }
   }
 
@@ -65,6 +81,9 @@ export class TreeNode implements ITreeNode {
 
   setField(key, value) {
     this.data[this.options[`${key}Field`]] = value;
+  }
+  get isFolder(): boolean {
+    return this._isFolder || this.hasChildren;
   }
 
   // traversing:

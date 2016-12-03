@@ -116,6 +116,7 @@ export interface ITreeNode {
   isLeaf:boolean;
   hasChildren:boolean;
   isRoot:boolean;
+  isFolder:boolean;
 
   // traversing
   /**
