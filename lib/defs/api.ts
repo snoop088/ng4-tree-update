@@ -40,6 +40,10 @@ export interface ITreeOptions {
     */
    allowDrag?: boolean;
    /**
+    * Allow creation of folders when a node is dropped inside another node. Default: false
+    */
+   allowFolderFromNode?: boolean;
+   /**
    * Specify padding per node instead of children padding (to allow full row select for example)
    */
    levelPadding?: number;

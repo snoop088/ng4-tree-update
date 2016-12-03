@@ -43,7 +43,6 @@ export class TreeNode implements ITreeNode {
     }
     // CHECK for children
     if (this.data['folder']) {
-      console.log('setting');
       this._isFolder = true;
     }
   }
@@ -300,7 +299,20 @@ export class TreeNode implements ITreeNode {
   allowDrag() {
     return this.options.allowDrag;
   }
-
+  // TOGGLE CONTEXT
+  toggleContext($event) {
+    $event.preventDefault();
+    if (this.treeModel.contextMenuNode && (this.treeModel.contextMenuNode.id != this.id)) {
+      this.treeModel.contextMenuNode.openContext = false;
+    }
+    this.treeModel.contextMenuNode = this;
+    this._openContext = !this._openContext;
+    // reset context of previous, show this context
+  }
+  // RENAME
+  rename(newName: string) {
+    this.data.name = newName;
+  }
   mouseAction(actionName:string, $event, data:any = null) {
     this.treeModel.setFocus(true);
 

@@ -366,10 +366,31 @@ export class TreeModel implements ITreeModel {
     if (node.parent === to.parent && fromIndex === to.index) {
       return false;
     }
+    if (!(this.options.allowFolderFromNode || to.parent.isFolder)) {
+      return false;
+    }
 
     return !to.parent.isDescendantOf(node);
   }
+  addNode (name: string, inParent: TreeNode) {
 
+  }
+  addFolder (name: string, node: TreeNode) {
+    let parentNode = this.virtualRoot;
+    if (node && node.isFolder) {
+      parentNode = node;
+    } else if (node && node.parent) {
+      parentNode = node.parent;
+    }
+    if (!parentNode.data.children) {
+      parentNode.data.children = [];
+    }
+    parentNode.data.children.push({
+      'name' : name,
+      'folder' : true
+    })
+    this.update();
+  }
   moveNode(node, to) {
     const fromIndex = node.getIndexInParent();
     const fromParent = node.parent;

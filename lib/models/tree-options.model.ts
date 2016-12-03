@@ -23,6 +23,7 @@ export const TREE_ACTIONS = {
   DRILL_UP: (tree:TreeModel, node:TreeNode, $event:any) => tree.focusDrillUp(),
   NEXT_NODE: (tree:TreeModel, node:TreeNode, $event:any) =>  tree.focusNextNode(),
   PREVIOUS_NODE: (tree:TreeModel, node:TreeNode, $event:any) =>  tree.focusPreviousNode(),
+  CONTEXT_MENU: (tree:TreeModel, node:TreeNode, $event:any) => node.toggleContext($event),
   MOVE_NODE: (tree:TreeModel, node:TreeNode, $event:any, {from , to}:{from:any, to:any}) => {
     // default action assumes from = node, to = {parent, index}
     tree.moveNode(from, to);
@@ -33,7 +34,7 @@ const defaultActionMapping:IActionMapping = {
   mouse: {
     click: TREE_ACTIONS.TOGGLE_SELECTED,
     dblClick: null,
-    contextMenu: null,
+    contextMenu: TREE_ACTIONS.CONTEXT_MENU,
     expanderClick: TREE_ACTIONS.TOGGLE_EXPANDED,
     drop: TREE_ACTIONS.MOVE_NODE
   },
@@ -75,7 +76,8 @@ export class TreeOptions {
   get getChildren(): any { return this.options.getChildren }
   get hasCustomContextMenu(): boolean { return this.options.hasCustomContextMenu }
   get context(): any { return this.options.context }
-  get allowDrag(): boolean { return this.options.allowDrag }
+  get allowDrag(): boolean { return this.options.allowDrag || true}
+  get allowFolderFromNode(): boolean { return this.options.allowFolderFromNode || false }
   get levelPadding(): number { return this.options.levelPadding || 0 }
   actionMapping: IActionMapping;
 

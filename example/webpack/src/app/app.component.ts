@@ -3,10 +3,6 @@ import { TreeNode, TREE_ACTIONS, KEYS, IActionMapping } from 'angular2-tree-comp
 
 const actionMapping:IActionMapping = {
   mouse: {
-    contextMenu: (tree, node, $event) => {
-      $event.preventDefault();
-      alert(`context menu for ${node.data.name}`);
-    },
     dblClick: (tree, node, $event) => {
       if (node.hasChildren) TREE_ACTIONS.TOGGLE_EXPANDED(tree, node, $event);
     },
@@ -32,7 +28,14 @@ const actionMapping:IActionMapping = {
         background: #A3D9F5;
         cursor: pointer;
         margin: 0 3px;
-      }`
+      }
+      .contextMenu {
+        display: none;
+      }
+      .contextOn {
+        display: inline-block
+      }
+      `
   ],
   template: `
   <form>
@@ -48,7 +51,15 @@ const actionMapping:IActionMapping = {
   <template #treeNodeTemplate let-node>
   <span title="{{node.data.subTitle}}">{{ node.data.name }}</span>
   <span class="pull-right">{{ childrenCount(node) }} | {{ node.isFolder }}</span>
-  <button (click)="go($event)">Custom Action</button>
+  <div class="contextMenu" [class.contextOn]="node.openContext">
+      <a (click)="logger('Edit -> router')">edit</a> | 
+      <a (click)="logger('Archive -> db op?')">archive</a> |
+      <a (click)="_contextToggleRenOption()">rename</a>
+      <span *ngIf="_contextRenOption">
+        <input #ren type="text" (keyup.enter)="node.rename(ren.value); _contextToggleRenOption()">
+        <button (click)="node.rename(ren.value); _contextToggleRenOption()">Rename</button>
+      </span>
+  </div>
   </template>
   <template #loadingTemplate>Loading, please hold....</template>
   </Tree>
@@ -83,6 +94,7 @@ const actionMapping:IActionMapping = {
     (click)="addNode(tree)">
     Add Node
   </button>
+  <button (click)="addFolder(tree)">Add Folder</button>
   <button
     (click)="activateSubSub(tree)">
     Activate inner node
@@ -91,6 +103,7 @@ const actionMapping:IActionMapping = {
 })
 export class App {
   nodes:any[] = null;
+  private _contextRenOption = false;
   constructor() {
     setTimeout(() => {
       this.nodes = [
@@ -171,12 +184,16 @@ export class App {
       })), 1000);
     });
   }
-
+  addFolder(tree) {
+    let addToNode = tree.treeModel.getFocusedNode();
+    tree.treeModel.addFolder('New Folder', addToNode)
+  }
   addNode(tree) {
     this.nodes[0].children.push({
 
       name: 'a new child',
-      folder: true
+      folder: false,
+      hasChildren: false
     });
     tree.treeModel.update();
   }
@@ -204,7 +221,15 @@ export class App {
     allowDrag: false
   }
   onEvent = console.log.bind(console);
-
+  private _contextToggleRenOption() {
+    this._contextRenOption = !this._contextRenOption;
+  }
+  private _contextRenameNode(val: string, node: TreeNode) {
+    node.data.name = val;
+    //node.treeModel.update();
+    this._contextToggleRenOption();
+    console.log(node.treeModel.nodes);
+  }
   go($event) {
     $event.stopPropagation();
     alert('this method is on the app component')
