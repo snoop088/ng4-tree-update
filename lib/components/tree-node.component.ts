@@ -50,8 +50,8 @@ import { ITreeNodeTemplate } from './tree-node-content.component';
     <div
       *ngIf="!node.isHidden"
       class="tree-node tree-node-level-{{ node.level }}"
-      [class.tree-node-expanded]="node.isExpanded && node.hasChildren"
-      [class.tree-node-collapsed]="node.isCollapsed && node.hasChildren"
+      [class.tree-node-expanded]="node.isExpanded && node.isFolder"
+      [class.tree-node-collapsed]="node.isCollapsed && node.isFolder"
       [class.tree-node-leaf]="node.isLeaf"
       [class.tree-node-active]="node.isActive"
       [class.tree-node-focused]="node.isFocused">
@@ -64,7 +64,7 @@ import { ITreeNodeTemplate } from './tree-node-content.component';
 
         <div class="node-wrapper" [style.padding-left]="getNodePadding()">
           <span
-            *ngIf="node.hasChildren"
+            *ngIf="node.isFolder"
             class="toggle-children-wrapper"
             (click)="node.mouseAction('expanderClick', $event)">
 
