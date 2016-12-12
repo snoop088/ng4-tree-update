@@ -7,7 +7,7 @@ import { ITreeNodeTemplate } from './tree-node-content.component';
   encapsulation: ViewEncapsulation.None,
   styles: [
     '.tree-children.tree-children-no-padding { padding-left: 0 }',
-    '.tree-children { padding-left: 20px }',
+    '.tree-children { padding-left: 10px }',
     `.node-content-wrapper {
       display: inline-block;
       padding: 2px 5px;
@@ -71,7 +71,7 @@ import { ITreeNodeTemplate } from './tree-node-content.component';
             <span class="toggle-children"></span>
           </span>
           <span
-            *ngIf="!node.hasChildren"
+            *ngIf="!node.isFolder"
             class="toggle-children-placeholder">
           </span>
           <div class="node-content-wrapper"

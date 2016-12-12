@@ -222,6 +222,10 @@ export class TreeNode implements ITreeNode {
 
   setIsActive(value, multi = false) {
     this.treeModel.setActiveNode(this, value, multi);
+    if (this.treeModel.contextMenuNode && 
+      (this.id !== this.treeModel.contextMenuNode.id)) {
+      this.treeModel.contextMenuNode.openContext = false;
+    }
     if (value) {
       this.focus();
     }
@@ -312,6 +316,7 @@ export class TreeNode implements ITreeNode {
   // RENAME
   rename(newName: string) {
     this.data.name = newName;
+    this.fireEvent({ eventName: TREE_EVENTS.onUpdateData, node: this });
   }
   mouseAction(actionName:string, $event, data:any = null) {
     this.treeModel.setFocus(true);
