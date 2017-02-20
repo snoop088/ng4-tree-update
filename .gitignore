@@ -58,3 +58,4 @@ npm-debug.log
 # /dist - include dist folder
 
 compiled
+example/webpack
