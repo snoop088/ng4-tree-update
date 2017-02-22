@@ -32,6 +32,7 @@ export class TreeNodeDropSlot {
   }
 
   allowDrop(element) {
+    if (this.node.options.readOnly) return false;
     return this.node.options.allowDrop(element, { parent: this.node, index: this.dropIndex });
   }
 }

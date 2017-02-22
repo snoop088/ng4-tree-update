@@ -53,6 +53,7 @@ export declare class TreeOptions {
     readonly context: any;
     readonly allowDrag: boolean;
     readonly allowFolderFromNode: boolean;
+    readonly readOnly: boolean;
     readonly levelPadding: number;
     actionMapping: IActionMapping;
     constructor(options?: ITreeOptions);

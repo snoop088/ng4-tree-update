@@ -78,6 +78,7 @@ export class TreeOptions {
   get context(): any { return this.options.context }
   get allowDrag(): boolean { return this.options.allowDrag}
   get allowFolderFromNode(): boolean { return this.options.allowFolderFromNode }
+  get readOnly(): boolean { return this.options.readOnly }
   get levelPadding(): number { return this.options.levelPadding || 0 }
   actionMapping: IActionMapping;
 

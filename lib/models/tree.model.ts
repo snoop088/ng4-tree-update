@@ -369,6 +369,9 @@ export class TreeModel implements ITreeModel {
     if (!(this.options.allowFolderFromNode || to.parent.isFolder)) {
       return false;
     }
+    if (this.options.readOnly) {
+      return false;
+    }
 
     return !to.parent.isDescendantOf(node);
   }

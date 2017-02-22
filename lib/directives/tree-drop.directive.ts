@@ -26,7 +26,6 @@ export class TreeDropDirective {
 
   @HostListener('dragover', ['$event']) onDragOver($event) {
     if (!this.allowDrop()) return this.addDisabledClass();
-
     $event.preventDefault();
     this.addClass();
   }

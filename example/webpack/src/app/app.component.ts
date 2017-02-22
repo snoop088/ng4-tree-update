@@ -218,8 +218,7 @@ export class App {
     idField: 'uuid',
     getChildren: this.getChildren.bind(this),
     actionMapping,
-    allowDrag: false
-  }
+    }
   onEvent = console.log.bind(console);
   private _contextToggleRenOption() {
     this._contextRenOption = !this._contextRenOption;

@@ -132,6 +132,7 @@ export class TreeNodeComponent implements AfterViewInit {
   }
 
   allowDrop(element) {
+    if (this.node.options.readOnly) return false;
     return this.node.options.allowDrop(element, { parent: this.node, index: 0 });
   }
 

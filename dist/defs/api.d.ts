@@ -49,6 +49,10 @@ export interface ITreeOptions {
      */
     allowFolderFromNode?: boolean;
     /**
+    * Block the tree from dropping inside it. Drop out of tree is allowed. Default: false
+    */
+    readOnly?: boolean;
+    /**
      * Allow drop on the tree.
      * Either boolean value, or a function that takes the dragged element and drop location (parent, index)
      * and returns a boolean value.
