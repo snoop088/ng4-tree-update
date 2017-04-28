@@ -390,7 +390,8 @@ export class TreeModel implements ITreeModel {
     }
     parentNode.data.children.push({
       'name' : name,
-      'folder' : true
+      'folder' : true,
+      'state': "0"
     })
     this.update();
   }
