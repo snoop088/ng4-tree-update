@@ -21,7 +21,7 @@
     "clean:typescript": "rimraf dist",
     "build": "./node_modules/.bin/ngc",
     "example:webpack": "npm run build && xcopy dist example\\webpack\\node_modules\\angular2-tree-component\\ /e && cd example\\webpack && npm start",
-    "example:cli": "npm run build && xcopy dist example\\cli\\node_modules\\angular2-tree-component\\ && cd example\\cli && ng serve",
+    "example:cli": "npm run build && xcopy dist example\\cli\\node_modules\\angular2-tree-component\\ /e/y && cd example\\cli && ng serve",
     "example:webpack:build": "cd example/webpack && npm run build"
   },
   "files": [

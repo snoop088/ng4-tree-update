@@ -8,6 +8,6 @@ export declare class TreeDragDirective implements DoCheck {
     treeDragEnabled: any;
     constructor(el: ElementRef, renderer: Renderer, treeDraggedElement: TreeDraggedElement);
     ngDoCheck(): void;
-    onDragStart(): void;
+    onDragStart(ev: any): void;
     onDragEnd(): void;
 }
